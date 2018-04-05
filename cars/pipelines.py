@@ -7,5 +7,6 @@
 
 
 class CarsPipeline(object):
+    # Clean Search Results
     def process_item(self, item, spider):
         return item

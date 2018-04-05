@@ -3,7 +3,7 @@
 
 from scrapy.utils.project import get_project_settings
 from scrapy.crawler import CrawlerProcess
-from spiders.base_spider import BaseSpider
+from spiders.main_generate_links import SearchCarSpider
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
 
     # Run crawler
     process = CrawlerProcess(settings)
-    process.crawl(BaseSpider)
+    process.crawl(SearchCarSpider)
     process.start()
 
 
