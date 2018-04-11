@@ -22,21 +22,15 @@ class SearchCarSpider(BaseSpider):
         }
 
 
-
     def extract_results(self, response):
-        price = response.xpath('//span[@class="item--price"]/text()').extract()
-        engine_litre = response.xpath('//ul[@class="feature-specs"]//p[@xpath = "1"]/text()')#.extract()
-        mileage = response.xpath('//ul[@class="feature-specs"]//p[@xpath="2"]/text()').extract()
-        bhp = response.xpath('//ul[@class="feature-specs"]//p[@xpath="3"]/text()').extract()
-        fuel = response.xpath('//ul[@class="feature-specs"]//p[@xpath="4"]/text()').extract()
-        gearbox = response.xpath('//ul[@class="feature-specs"]//p[@xpath="5"]/text()').extract()
-        print price
-        print engine_litre
-        print mileage
-        print bhp
-        print fuel
-        print gearbox
+        price = response.xpath('//span[@class="item--price"]/text()').extract_first()
+        features = response.xpath('//ul[@class="feature-specs"]')
+        print dict(zip(['Engine_Litre','Mileage','BHP','Fuel','Manual','Price'], [f.extract() for f in features.xpath('.//p/text()')] + [price]))
+
+
 
     # Vechile description
+    # Vechile title
+    # Handiling next page
 
 
