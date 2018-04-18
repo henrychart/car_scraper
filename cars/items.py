@@ -5,10 +5,18 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
 
+from scrapy.item import Field
 import scrapy
 
-
-class CarsItem(scrapy.Item):
+class Cars(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+
+    Engine_Litre = Field()
+    Mileage = Field()
+    BHP = Field()
+    Fuel = Field()
+    Manual = Field()
+    Price = Field()
+    Desc = Field()
+    Title = Field()
