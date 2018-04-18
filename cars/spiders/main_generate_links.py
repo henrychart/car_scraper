@@ -1,5 +1,7 @@
 from base_spider import BaseSpider
 import scrapy
+from cars.items import Cars
+from scrapy.loader import ItemLoader
 
 class SearchCarSpider(BaseSpider):
 
@@ -27,8 +29,18 @@ class SearchCarSpider(BaseSpider):
         }
 
     def extract_results(self, response):
-        price = response.xpath('//span[@class="item--price"]/text()').extract_first()
+        l = ItemLoader(item=Cars(), response=response)
+        l.add_xpath('Price', '//span[@class="item--price"]/text()')
+        l.add_xpath('Title', '//h1[@class="main--title grid__item three-quarters"]/text()')
+        l.add_xpath('Desc', '//section[@class="advert-description"]/text()')
         features = response.xpath('//ul[@class="feature-specs"]')
-        desc = response.xpath('//section[@class="advert-description"]/text()').extract_first()
-        title = response.xpath('//h1[@class="main--title grid__item three-quarters"]/text()').extract_first()
-        yield dict(zip(['Engine_Litre','Mileage','BHP','Fuel','Manual','Price', 'Desc', 'Title'], [f.extract() for f in features.xpath('.//p/text()')] + [price] + [desc] + [title]))
+        zip(['Engine_Litre','Mileage','BHP','Fuel','Manual'], [l.add_xpath({},'.//p/text()') f in features.xpath('.//p/text()')])
+        print l.load_item()
+
+
+    # def extract_results(self, response):
+    #     price = response.xpath('//span[@class="item--price"]/text()').extract_first()
+    #     features = response.xpath('//ul[@class="feature-specs"]')
+    #     desc = response.xpath('//section[@class="advert-description"]/text()').extract_first()
+    #     title = response.xpath('//h1[@class="main--title grid__item three-quarters"]/text()').extract_first()
+    #     yield dict(zip(['Engine_Litre','Mileage','BHP','Fuel','Manual','Price', 'Desc', 'Title'], [f.extract() for f in features.xpath('.//p/text()')] + [price] + [desc] + [title]))
