@@ -8,6 +8,7 @@
 from scrapy.item import Field
 import scrapy
 
+
 class Cars(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
@@ -20,3 +21,4 @@ class Cars(scrapy.Item):
     Price = Field()
     Desc = Field()
     Title = Field()
+    Acceleration = Field()

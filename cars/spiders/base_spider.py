@@ -16,7 +16,7 @@ class BaseSpider(scrapy.Spider):
         Load car names from an input and create search urls
         :return:
         """
-        cars = ['ferrari', 'bmw']
+        cars = ['ferrari']
         #cars = self.settings.get('INPUT_DATA', [])
         return [self.process_car_name(car) for car in cars]
 
@@ -28,7 +28,6 @@ class BaseSpider(scrapy.Spider):
 
 
     def parse_search_results(self, response):
-        print response
         yield {'request_url': response.url}
 
     def process_search_error(self, failure):
